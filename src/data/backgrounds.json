@@ -1,0 +1,146 @@
+[
+  {
+    "id": "acolyte",
+    "name_ua": "Прислужник",
+    "ability_bonuses": ["wisdom", "intelligence", "charisma"],
+    "skill_proficiencies": ["insight", "religion"],
+    "tool_proficiencies": ["calligraphers_supplies"],
+    "feat_id": "magic_initiate",
+    "equipment": ["Священний символ", "Книга молитов", "5 паличок пахощів", "Ряса прислужника", "15 ЗМ"]
+  },
+  {
+    "id": "artisan",
+    "name_ua": "Ремісник",
+    "ability_bonuses": ["strength", "dexterity", "intelligence"],
+    "skill_proficiencies": ["investigation", "persuasion"],
+    "tool_proficiencies": ["artisans_tools"],
+    "feat_id": "crafter",
+    "equipment": ["Набір ремісничих інструментів", "Лист від гільдії", "Дорожній одяг", "Мішечок з 15 ЗМ"]
+  },
+  {
+    "id": "charlatan",
+    "name_ua": "Шарлатан",
+    "ability_bonuses": ["dexterity", "constitution", "charisma"],
+    "skill_proficiencies": ["deception", "sleight_of_hand"],
+    "tool_proficiencies": ["forgery_kit"],
+    "feat_id": "skilled",
+    "equipment": ["Вишуканий одяг", "Набір для гримування", "Шулерські кубики", "15 ЗМ"]
+  },
+  {
+    "id": "criminal",
+    "name_ua": "Злочинець",
+    "ability_bonuses": ["dexterity", "constitution", "intelligence"],
+    "skill_proficiencies": ["sleight_of_hand", "stealth"],
+    "tool_proficiencies": ["thieves_tools"],
+    "feat_id": "alert",
+    "equipment": ["Лом", "Темний одяг з капюшоном", "Злодійські інструменти", "16 ЗМ"]
+  },
+  {
+    "id": "entertainer",
+    "name_ua": "Артист",
+    "ability_bonuses": ["dexterity", "constitution", "charisma"],
+    "skill_proficiencies": ["acrobatics", "performance"],
+    "tool_proficiencies": ["musical_instrument"],
+    "feat_id": "musician",
+    "equipment": ["Музичний інструмент", "Костюм", "Дрібничка від фаната", "15 ЗМ"]
+  },
+  {
+    "id": "farmer",
+    "name_ua": "Фермер",
+    "ability_bonuses": ["strength", "constitution", "wisdom"],
+    "skill_proficiencies": ["animal_handling", "nature"],
+    "tool_proficiencies": ["carpenters_tools"],
+    "feat_id": "tough",
+    "equipment": ["Залізний горщик", "Лопата", "Повсякденний одяг", "Ціпок", "14 ЗМ"]
+  },
+  {
+    "id": "guard",
+    "name_ua": "Охоронець",
+    "ability_bonuses": ["strength", "constitution", "intelligence"],
+    "skill_proficiencies": ["athletics", "perception"],
+    "tool_proficiencies": ["gaming_set"],
+    "feat_id": "alert",
+    "equipment": ["Спис", "Знак охорони", "Комплект ігрових карт", "Уніформа", "14 ЗМ"]
+  },
+  {
+    "id": "guide",
+    "name_ua": "Провідник",
+    "ability_bonuses": ["dexterity", "constitution", "wisdom"],
+    "skill_proficiencies": ["survival", "stealth"],
+    "tool_proficiencies": ["cartographers_tools"],
+    "feat_id": "magic_initiate",
+    "equipment": ["Намет", "Карта околиць", "Дорожній одяг", "Лук та стріли", "14 ЗМ"]
+  },
+  {
+    "id": "hermit",
+    "name_ua": "Відсамітник",
+    "ability_bonuses": ["constitution", "wisdom", "charisma"],
+    "skill_proficiencies": ["medicine", "religion"],
+    "tool_proficiencies": ["herbalism_kit"],
+    "feat_id": "healer",
+    "equipment": ["Сувій з таємницею", "Тепла ковдра", "Набір травника", "Повсякденний одяг", "15 ЗМ"]
+  },
+  {
+    "id": "merchant",
+    "name_ua": "Торговець",
+    "ability_bonuses": ["constitution", "intelligence", "charisma"],
+    "skill_proficiencies": ["animal_handling", "persuasion"],
+    "tool_proficiencies": ["navigators_tools"],
+    "feat_id": "lucky",
+    "equipment": ["Рахункова книга", "Одяг мандрівного торговця", "Мішок з інвентарем", "22 ЗМ"]
+  },
+  {
+    "id": "noble",
+    "name_ua": "Аристократ",
+    "ability_bonuses": ["strength", "intelligence", "charisma"],
+    "skill_proficiencies": ["history", "persuasion"],
+    "tool_proficiencies": ["gaming_set"],
+    "feat_id": "skilled",
+    "equipment": ["Дорогий одяг", "Печатка роду", "Сувій на родовід", "Гаманець з 25 ЗМ"]
+  },
+  {
+    "id": "sage",
+    "name_ua": "Вчений",
+    "ability_bonuses": ["constitution", "intelligence", "wisdom"],
+    "skill_proficiencies": ["arcana", "history"],
+    "tool_proficiencies": ["calligraphers_supplies"],
+    "feat_id": "magic_initiate",
+    "equipment": ["Чорнильниця та перо", "Книга з легендами", "Лист-запрошення до університету", "Одяг вченого", "18 ЗМ"]
+  },
+  {
+    "id": "sailor",
+    "name_ua": "Моряк",
+    "ability_bonuses": ["strength", "dexterity", "wisdom"],
+    "skill_proficiencies": ["athletics", "perception"],
+    "tool_proficiencies": ["navigators_tools"],
+    "feat_id": "tavern_brawler",
+    "equipment": ["50 футів шовкової мотузки", "Талісман на вдачу", "Короткий меч", "Одяг моряка", "14 ЗМ"]
+  },
+  {
+    "id": "scribe",
+    "name_ua": "Писар",
+    "ability_bonuses": ["dexterity", "intelligence", "wisdom"],
+    "skill_proficiencies": ["investigation", "perception"],
+    "tool_proficiencies": ["calligraphers_supplies"],
+    "feat_id": "skilled",
+    "equipment": ["Окуляри (або лупа)", "Перо", "Чистий пергамент", "Одяг", "15 ЗМ"]
+  },
+  {
+    "id": "soldier",
+    "name_ua": "Солдат",
+    "ability_bonuses": ["strength", "dexterity", "constitution"],
+    "skill_proficiencies": ["athletics", "intimidation"],
+    "tool_proficiencies": ["gaming_set"],
+    "feat_id": "savage_attacker",
+    "equipment": ["Символ рангу", "Трофей ворога", "Кістки або карти", "Армійський одяг", "14 ЗМ"]
+  },
+  {
+    "id": "wayfarer",
+    "name_ua": "Мандрівник (Безпритульний)",
+    "ability_bonuses": ["dexterity", "wisdom", "charisma"],
+    "skill_proficiencies": ["insight", "stealth"],
+    "tool_proficiencies": ["thieves_tools"],
+    "feat_id": "lucky",
+    "equipment": ["Спальний мішок", "Карта міста", "Таємний сховок в каптурі", "16 ЗМ"]
+  }
+]

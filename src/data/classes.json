@@ -1,0 +1,110 @@
+[
+  {
+    "id": "barbarian",
+    "name_ua": "Варвар",
+    "hit_die": "1d12",
+    "primary_abilities": ["strength"],
+    "saving_throws": ["strength", "constitution"],
+    "description": "Жорстокий воїн первісного походження, який живиться емоціями і може входити у стан нищівної бойової люті.",
+    "subclasses_ids": ["path_of_the_berserker", "path_of_the_wild_heart", "path_of_the_world_tree", "path_of_the_zealot"]
+  },
+  {
+    "id": "bard",
+    "name_ua": "Бард",
+    "hit_die": "1d8",
+    "primary_abilities": ["charisma"],
+    "saving_throws": ["dexterity", "charisma"],
+    "description": "Митець та надихаючий чарівник, сила якого походить від луни Музики Створення, що пронизує мультивсесвіт.",
+    "subclasses_ids": ["college_of_dance", "college_of_glamour", "college_of_lore", "college_of_valor"]
+  },
+  {
+    "id": "cleric",
+    "name_ua": "Жрець",
+    "hit_die": "1d8",
+    "primary_abilities": ["wisdom"],
+    "saving_throws": ["wisdom", "charisma"],
+    "description": "Божественний служитель та чудотворець, який володіє могутньою лікувальною магією та силою карати ворогів іменем свого божества.",
+    "subclasses_ids": ["life_domain", "light_domain", "trickery_domain", "war_domain"]
+  },
+  {
+    "id": "druid",
+    "name_ua": "Друїд",
+    "hit_die": "1d8",
+    "primary_abilities": ["wisdom"],
+    "saving_throws": ["intelligence", "wisdom"],
+    "description": "Жрець Старої Віри, що черпає містичну силу від самої природи та здатен приймати форму диких звірів.",
+    "subclasses_ids": ["circle_of_the_land", "circle_of_the_moon", "circle_of_the_sea", "circle_of_the_stars"]
+  },
+  {
+    "id": "fighter",
+    "name_ua": "Воїн",
+    "hit_die": "1d10",
+    "primary_abilities": ["strength", "dexterity"],
+    "saving_throws": ["strength", "constitution"],
+    "description": "Неперевершений майстер бойових мистецтв, вправний з усіма видами зброї та броні, здатний переломити хід найважчої битви.",
+    "subclasses_ids": ["battle_master", "champion", "eldritch_knight", "psi_warrior"]
+  },
+  {
+    "id": "monk",
+    "name_ua": "Монах",
+    "hit_die": "1d8",
+    "primary_abilities": ["dexterity", "wisdom"],
+    "saving_throws": ["strength", "dexterity"],
+    "description": "Майстер бойових мистецтв, що використовує енергію мультивсесвіту (Кі) для досягнення фізичної та духовної досконалості.",
+    "subclasses_ids": ["warrior_of_mercy", "warrior_of_shadow", "warrior_of_the_elements", "warrior_of_the_open_hand"]
+  },
+  {
+    "id": "paladin",
+    "name_ua": "Паладин",
+    "hit_die": "1d10",
+    "primary_abilities": ["strength", "charisma"],
+    "saving_throws": ["wisdom", "charisma"],
+    "description": "Святий лицар, пов'язаний священною клятвою (Обітницею), що поєднує могутні удари зброєю з божественною магією підтримки.",
+    "subclasses_ids": ["oath_of_devotion", "oath_of_glory", "oath_of_the_ancients", "oath_of_vengeance"]
+  },
+  {
+    "id": "ranger",
+    "name_ua": "Слідопит",
+    "hit_die": "1d10",
+    "primary_abilities": ["dexterity", "wisdom"],
+    "saving_throws": ["strength", "dexterity"],
+    "description": "Воїн-мисливець на межі цивілізації та дикої природи, що переслідує ворогів та використовує магію природи.",
+    "subclasses_ids": ["beast_master", "fey_wanderer", "gloom_stalker", "hunter"]
+  },
+  {
+    "id": "rogue",
+    "name_ua": "Шахрай",
+    "hit_die": "1d8",
+    "primary_abilities": ["dexterity"],
+    "saving_throws": ["dexterity", "intelligence"],
+    "description": "Спритний мерзотник, злодій або вбивця, що покладається на хитрощі, майстерність та знання вразливих місць ворога.",
+    "subclasses_ids": ["arcane_trickster", "assassin", "soulknife", "thief"]
+  },
+  {
+    "id": "sorcerer",
+    "name_ua": "Чаклун",
+    "hit_die": "1d6",
+    "primary_abilities": ["charisma"],
+    "saving_throws": ["constitution", "charisma"],
+    "description": "Магонароджений талант, що керує вродженою, спонтанною магією, отриманою через родовід чи космічний вплив.",
+    "subclasses_ids": ["aberrant_sorcery", "clockwork_sorcery", "draconic_sorcery", "wild_magic_sorcery"]
+  },
+  {
+    "id": "warlock",
+    "name_ua": "Чорнокнижник",
+    "hit_die": "1d8",
+    "primary_abilities": ["charisma"],
+    "saving_throws": ["wisdom", "charisma"],
+    "description": "Окультний шукач, межі магії якого визначаються договором із потойбічною, позавимірною сутністю.",
+    "subclasses_ids": ["archfey_patron", "celestial_patron", "fiend_patron", "great_old_one_patron"]
+  },
+  {
+    "id": "wizard",
+    "name_ua": "Чарівник",
+    "hit_die": "1d6",
+    "primary_abilities": ["intelligence"],
+    "saving_throws": ["intelligence", "wisdom"],
+    "description": "Вчений та дослідник академічної магії, який постійно розширює свій репертуар через навчання та свою книгу заклинань.",
+    "subclasses_ids": ["abjurer", "diviner", "evoker", "illusionist"]
+  }
+]
