@@ -3,6 +3,7 @@ import { AbilityType } from '../lib/dndData';
 
 // Головний інтерфейс стану нашого персонажа
 export interface CharacterState {
+  level: number;
   classId: string | null;
   speciesId: string | null;
   backgroundId: string | null;
@@ -13,6 +14,7 @@ export interface CharacterState {
   baseAbilities: Record<AbilityType, number | null>;
   extraFeatId: string | null;
   equipmentPackId: string | null;
+  chosenMasteries?: string[];
 }
 
 interface CharacterContextProps {
@@ -34,6 +36,7 @@ const CharacterContext = createContext<CharacterContextProps | undefined>(undefi
 export function CharacterProvider({ children }: { children: ReactNode }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [char, setChar] = useState<CharacterState>({
+    level: 1,
     classId: null,
     speciesId: null,
     backgroundId: null,
@@ -41,6 +44,7 @@ export function CharacterProvider({ children }: { children: ReactNode }) {
     baseAbilities: { ...INITIAL_BASE },
     extraFeatId: null,
     equipmentPackId: null,
+    chosenMasteries: [],
   });
 
   // Логіка динамічного обчислення фінальних характеристик

@@ -4,7 +4,9 @@ import {
   classesData, speciesData, backgroundsData, featsData, 
   abilityNames, AbilityType, standardArray, calculateModifier 
 } from '../lib/dndData';
-import { CheckCircle2, Star, Backpack, User } from 'lucide-react';
+import { calculateLevelStats } from '../lib/classProgression';
+import { CheckCircle2, Star, Backpack, User, Zap } from 'lucide-react';
+import ActiveCharacterCard from './ActiveCharacterCard';
 
 export function StepClass() {
   const { char, setChar } = useCharacterContext();
@@ -36,6 +38,90 @@ export function StepClass() {
           </button>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function StepLevel() {
+  const { char, setChar, getFinalAbility } = useCharacterContext();
+  const currentClass = classesData.find(c => c.id === char.classId);
+  const conScore = getFinalAbility('con');
+
+  const stats = currentClass ? calculateLevelStats(currentClass.id, char.level, currentClass.hitDie, conScore) : null;
+
+  return (
+    <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
+      <div className="bg-yellow-50 text-yellow-800 p-4 rounded-xl border border-yellow-200 text-sm">
+        <strong className="font-bold">Рівень Персонажа:</strong> Виберіть рівень (від 1 до 20). Характеристики автоматично підлаштуються під ваш вибір.
+      </div>
+      
+      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <label className="block text-sm font-bold text-slate-700 mb-3">Оберіть рівень:</label>
+        <div className="flex items-center gap-4">
+          <input 
+            type="range" 
+            min="1" 
+            max="20" 
+            value={char.level}
+            onChange={(e) => setChar({ ...char, level: parseInt(e.target.value) })}
+            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+          />
+          <div className="text-2xl font-black text-indigo-600 w-12 text-center">{char.level}</div>
+        </div>
+      </div>
+
+      {stats && (
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <Zap className="w-5 h-5 text-amber-500" /> Статистика на {char.level} рівні
+            </h4>
+            <ul className="space-y-3 text-sm text-slate-700">
+              <li className="flex justify-between border-b border-slate-200 pb-1">
+                <span className="font-medium">Бонус Майстерності:</span> 
+                <span className="font-bold text-indigo-600">+{stats.proficiencyBonus}</span>
+              </li>
+              <li className="flex justify-between border-b border-slate-200 pb-1">
+                <span className="font-medium">Очки Здоров'я (HP):</span> 
+                <span className="font-bold text-emerald-600">{stats.hitPoints}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <Star className="w-5 h-5 text-indigo-500" /> Особливості {char.level} рівня
+            </h4>
+            {stats.features.length > 0 ? (
+              <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
+                {stats.features.map((f, i) => <li key={i}>{f}</li>)}
+              </ul>
+            ) : (
+              <p className="text-sm text-slate-500 italic">На цьому рівні немає нових класових здібностей.</p>
+            )}
+          </div>
+
+          {stats.spellSlots && (
+            <div className="md:col-span-2 bg-indigo-50 p-5 rounded-xl border border-indigo-100">
+              <h4 className="font-bold text-indigo-900 mb-3">Комірки Заклинань (Spell Slots)</h4>
+              <div className="flex flex-wrap gap-2 text-sm">
+                {stats.spellSlots.standard && stats.spellSlots.standard.map((slots, i) => (
+                  <div key={i} className="bg-white border border-indigo-200 px-3 py-1.5 rounded-lg flex flex-col items-center">
+                    <span className="text-[10px] text-indigo-400 font-bold uppercase">Рівень {i + 1}</span>
+                    <span className="font-black text-indigo-700">{slots}</span>
+                  </div>
+                ))}
+                {stats.spellSlots.warlockPact && stats.spellSlots.warlockPact.slotsCount > 0 && (
+                  <div className="bg-purple-100 border border-purple-300 px-4 py-2 rounded-lg flex flex-col items-center">
+                    <span className="text-[10px] text-purple-600 font-bold uppercase">Магія Договору (Рвн. {stats.spellSlots.warlockPact.slotLevel})</span>
+                    <span className="font-black text-purple-900">{stats.spellSlots.warlockPact.slotsCount} комірок</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -82,16 +168,34 @@ export function StepOrigin() {
             >
               <div className="font-bold text-slate-900">{bg.name}</div>
               <div className="text-[10px] uppercase text-emerald-600 font-bold mt-2">Дає рису:</div>
-              <div className="text-xs text-slate-700">{featsData.find(f => f.id === bg.featId)?.name}</div>
+              <div className="text-xs text-slate-700">{bg.originFeatName}</div>
             </button>
           ))}
         </div>
 
         {currentBackground && (
           <div className="bg-white p-5 rounded-xl border-2 border-emerald-500 shadow-sm animate-in zoom-in-95">
-            <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
-              <Star className="w-5 h-5 text-emerald-500" /> Розподіл Бонусів Характеристик
-            </h4>
+            <div className="flex justify-between items-center mb-4">
+              <h4 className="font-bold text-slate-800 flex items-center gap-2">
+                <Star className="w-5 h-5 text-emerald-500" /> Розподіл Бонусів Характеристик
+              </h4>
+              <button
+                onClick={() => {
+                  const defaultDist = currentBackground.defaultDistribution;
+                  const keys = Object.keys(defaultDist) as AbilityType[];
+                  const plusTwo = keys.find(k => defaultDist[k] === 2) as AbilityType | null;
+                  const plusOne = keys.find(k => defaultDist[k] === 1) as AbilityType | null;
+                  setChar(prev => ({
+                    ...prev,
+                    backgroundAsi: { plusTwo, plusOne }
+                  }));
+                }}
+                className="text-xs bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg hover:bg-emerald-200 transition-colors font-medium border border-emerald-200"
+              >
+                Використати шаблон ({Object.entries(currentBackground.defaultDistribution).map(([k, v]) => `+${v} ${abilityNames[k as AbilityType]}`).join(', ')})
+              </button>
+            </div>
+            
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Бонус +2 до:</label>
@@ -290,13 +394,7 @@ export function StepSummary() {
   const [isSaving, setIsSaving] = React.useState(false);
   const [saveMessage, setSaveMessage] = React.useState<{type: 'success' | 'error', text: string} | null>(null);
 
-  const currentClass = classesData.find(c => c.id === char.classId);
-  const currentSpecies = speciesData.find(s => s.id === char.speciesId);
-  const currentBackground = backgroundsData.find(b => b.id === char.backgroundId);
-  const primaryFeat = featsData.find(f => f.id === currentBackground?.featId);
-  
   const isComplete = char.classId && char.speciesId && char.backgroundId && char.equipmentPackId && !Object.values(char.baseAbilities).includes(null);
-  const hp = currentClass?.hitDie ? currentClass.hitDie + calculateModifier(getFinalAbility('con')) + (currentSpecies?.id === 'dwarf' ? 1 : 0) : 0;
 
   const handleSave = async () => {
     setIsSaving(true);
@@ -342,96 +440,26 @@ export function StepSummary() {
         </div>
       )}
 
-      <div className="bg-slate-900 text-white rounded-3xl p-8 shadow-xl relative overflow-hidden border border-slate-800">
-        <div className="absolute right-0 top-0 opacity-5 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
-          <User className="w-96 h-96" />
+      {/* Жива картка персонажа замість старого текстового блоку */}
+      {isComplete ? (
+        <>
+          <ActiveCharacterCard />
+          <div className="mt-8 pt-6 border-t border-slate-200">
+             <button 
+                onClick={handleSave}
+                disabled={isSaving}
+                className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl text-lg shadow-lg shadow-emerald-900/50 transition-all flex justify-center items-center gap-2"
+             >
+                {isSaving ? 'Збереження...' : <><CheckCircle2 className="w-6 h-6" /> Зберегти Персонажа до Бази Даних</>}
+             </button>
+          </div>
+        </>
+      ) : (
+        <div className="bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-10 text-center text-slate-500">
+          Картка персонажа з'явиться тут, щойно ви заповните всі дані.
         </div>
+      )}
 
-        <div className="relative z-10 space-y-8">
-          <div className="flex flex-wrap justify-between items-end border-b border-slate-700 pb-6 gap-4">
-            <div>
-              <h2 className="text-3xl font-serif italic text-amber-400 mb-2">Невідомий Герой</h2>
-              <div className="text-sm text-slate-400 uppercase tracking-widest font-bold flex gap-2 items-center">
-                <span>Рівень 1</span>
-                <span className="w-1 h-1 bg-slate-600 rounded-full"/>
-                <span className="text-indigo-300">{currentSpecies?.name || 'Вид не обрано'}</span>
-                <span className="w-1 h-1 bg-slate-600 rounded-full"/>
-                <span className="text-emerald-300">{currentClass?.name || 'Клас не обрано'}</span>
-                <span className="w-1 h-1 bg-slate-600 rounded-full"/>
-                <span className="text-rose-300">{currentBackground?.name || 'Передісторія не обрана'}</span>
-              </div>
-            </div>
-            
-            <div className="flex gap-4">
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-slate-800 w-16 h-16 flex items-center justify-center rounded-2xl border border-slate-700 shadow-inner">
-                  {hp > 0 ? hp : '-'}
-                </div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold mt-2 block">Макс ПЗ</span>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-slate-800 w-16 h-16 flex items-center justify-center rounded-2xl border border-slate-700 shadow-inner">
-                  +2
-                </div>
-                <span className="text-[10px] text-slate-400 uppercase font-bold mt-2 block">Майстерність</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-6 gap-2">
-            {Object.entries(abilityNames).map(([key, name]) => {
-              const ab = key as AbilityType;
-              const score = char.baseAbilities[ab] ? getFinalAbility(ab) : null;
-              const mod = score !== null ? calculateModifier(score) : null;
-              return (
-                <div key={ab} className="bg-slate-800 rounded-xl p-3 text-center border border-slate-700 relative overflow-hidden">
-                  {currentClass?.primaryAbility === ab && (
-                    <div className="absolute top-0 inset-x-0 h-1 bg-indigo-500" />
-                  )}
-                  <span className="block text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-1">{name}</span>
-                  <span className="block text-2xl font-serif">{score || '-'}</span>
-                  <div className="mt-1 flex justify-center">
-                    <span className="text-xs bg-slate-900 border border-slate-600 px-2 py-0.5 rounded-full font-bold">
-                      {mod !== null ? (mod >= 0 ? `+${mod}` : mod) : '-'}
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-slate-700">
-             <div>
-                <h4 className="text-xs uppercase text-slate-500 font-bold mb-3 flex items-center gap-2"><Star className="w-4 h-4 text-emerald-400"/> Ключові Риси</h4>
-                <ul className="space-y-2 text-sm text-slate-300">
-                  {primaryFeat && <li><span className="text-emerald-300 font-bold">{primaryFeat.name}:</span> (від передісторії)</li>}
-                  {char.extraFeatId && <li><span className="text-indigo-300 font-bold">{featsData.find(f=>f.id===char.extraFeatId)?.name}:</span> (риса людини)</li>}
-                  {currentSpecies?.traits.map((t, idx) => <li key={idx}><span className="text-amber-300 font-bold">{t}:</span> (риса виду)</li>)}
-                </ul>
-             </div>
-             <div>
-                <h4 className="text-xs uppercase text-slate-500 font-bold mb-3 flex items-center gap-2"><Backpack className="w-4 h-4 text-amber-400"/> Інвентар</h4>
-                <ul className="space-y-2 text-sm text-slate-300 list-disc list-inside">
-                  {currentClass?.equipmentPacks.find(p => p.id === char.equipmentPackId)?.items.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  )) || <li className="text-slate-500 italic">Поки нічого</li>}
-                </ul>
-             </div>
-          </div>
-
-          {isComplete && (
-            <div className="pt-6">
-               <button 
-                  onClick={handleSave}
-                  disabled={isSaving}
-                  className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl text-lg shadow-lg shadow-emerald-900/50 transition-all flex justify-center items-center gap-2"
-               >
-                  {isSaving ? 'Збереження...' : <><CheckCircle2 className="w-6 h-6" /> Зберегти Персонажа</>}
-               </button>
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 }

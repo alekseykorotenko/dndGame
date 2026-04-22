@@ -1,8 +1,9 @@
 import React from 'react';
-import { Shield, Dna, BrainCircuit, Star, Backpack, User, ChevronRight, ChevronLeft, CheckCircle2 } from 'lucide-react';
+import { Shield, Dna, BrainCircuit, Star, Backpack, User, ChevronRight, ChevronLeft, CheckCircle2, Zap } from 'lucide-react';
 import { CharacterProvider, useCharacterContext } from '../context/CharacterContext';
 import { 
   StepClass, 
+  StepLevel,
   StepOrigin, 
   StepAbilities, 
   StepFeats, 
@@ -13,17 +14,18 @@ import {
 // Конфігурація кроків для навігації
 const WIZARD_STEPS_CONFIG = [
   { id: 1, title: 'Клас', icon: Shield, desc: 'Бойова роль' },
-  { id: 2, title: 'Походження', icon: Dna, desc: 'Вид та Передісторія' },
-  { id: 3, title: 'Характеристики', icon: BrainCircuit, desc: 'Базові параметри' },
-  { id: 4, title: 'Риси', icon: Star, desc: 'Здібності' },
-  { id: 5, title: 'Спорядження', icon: Backpack, desc: 'Інвентар' },
-  { id: 6, title: 'Підсумок', icon: User, desc: 'Лист персонажа' },
+  { id: 2, title: 'Рівень', icon: Zap, desc: 'Розвиток та Магія' },
+  { id: 3, title: 'Походження', icon: Dna, desc: 'Вид та Передісторія' },
+  { id: 4, title: 'Характеристики', icon: BrainCircuit, desc: 'Базові параметри' },
+  { id: 5, title: 'Риси', icon: Star, desc: 'Здібності' },
+  { id: 6, title: 'Спорядження', icon: Backpack, desc: 'Інвентар' },
+  { id: 7, title: 'Підсумок', icon: User, desc: 'Лист персонажа' },
 ];
 
 function WizardContent() {
   const { currentStep, setCurrentStep } = useCharacterContext();
 
-  const handleNext = () => setCurrentStep(p => Math.min(6, p + 1));
+  const handleNext = () => setCurrentStep(p => Math.min(7, p + 1));
   const handlePrev = () => setCurrentStep(p => Math.max(1, p - 1));
 
   return (
@@ -73,11 +75,12 @@ function WizardContent() {
         <div className="lg:col-span-3">
           <div className="min-h-[500px]">
              {currentStep === 1 && <StepClass />}
-             {currentStep === 2 && <StepOrigin />}
-             {currentStep === 3 && <StepAbilities />}
-             {currentStep === 4 && <StepFeats />}
-             {currentStep === 5 && <StepEquipment />}
-             {currentStep === 6 && <StepSummary />}
+             {currentStep === 2 && <StepLevel />}
+             {currentStep === 3 && <StepOrigin />}
+             {currentStep === 4 && <StepAbilities />}
+             {currentStep === 5 && <StepFeats />}
+             {currentStep === 6 && <StepEquipment />}
+             {currentStep === 7 && <StepSummary />}
           </div>
 
           <div className="mt-8 flex justify-between items-center border-t border-slate-200 pt-6">
@@ -90,10 +93,10 @@ function WizardContent() {
             </button>
             <button
               onClick={handleNext}
-              disabled={currentStep === 6}
+              disabled={currentStep === 7}
               className="flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-md transition-all disabled:opacity-30"
             >
-              {currentStep === 5 ? 'Перейти до Підсумку' : 'Далі'} <ChevronRight className="w-5 h-5" />
+              {currentStep === 6 ? 'Перейти до Підсумку' : 'Далі'} <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>

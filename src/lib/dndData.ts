@@ -92,14 +92,18 @@ export interface BackgroundDef {
   description: string;
   featId: string;
   asiOptions: AbilityType[];
+  defaultDistribution: Partial<Record<AbilityType, number>>;
+  originFeatName: string;
 }
 
 export const backgroundsData: BackgroundDef[] = rawBackgrounds.map(b => ({
   id: b.id,
   name: b.name_ua,
-  description: 'Спорядження: ' + b.equipment.join(', '),
-  featId: b.feat_id,
-  asiOptions: mapAbilities(b.ability_bonuses)
+  description: b.description + (b.equipment ? ' Спорядження: ' + b.equipment.join(', ') : ''),
+  featId: b.origin_feat.id,
+  asiOptions: b.ability_bonuses.options as AbilityType[],
+  defaultDistribution: b.ability_bonuses.default_distribution as Partial<Record<AbilityType, number>>,
+  originFeatName: b.origin_feat.name_ua
 }));
 
 export function calculateModifier(score: number): number {
