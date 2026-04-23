@@ -1,0 +1,24 @@
+{
+  "fighter": {
+    "name": "Fighter",
+    "hitDie": 10,
+    "primaryAbilities": ["str", "dex"],
+    "progression": {
+      "1": {
+        "features": ["Fighting Style", "Second Wind"],
+        "hpGain": "max" 
+      },
+      "2": {
+        "features": ["Action Surge"]
+      },
+      "3": {
+        "features": ["Subclass Selection", "Tactical Mind"],
+        "unlockSubclass": true
+      },
+      "4": {
+        "features": ["Ability Score Improvement", "Tactical Master"],
+        "grantFeat": "General"
+      }
+    }
+  }
+}

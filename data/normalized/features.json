@@ -1,0 +1,14 @@
+{
+  "darkvision": {
+    "name": "Darkvision",
+    "description": "You can see in dim light within 60 feet of you as if it were bright light."
+  },
+  "second_wind": {
+    "name": "Second Wind",
+    "description": "You can use a Bonus Action to regain Hit Points equal to 1d10 plus your Fighter level."
+  },
+  "tough_feature": {
+    "name": "Tough (Benefit)",
+    "description": "Your Hit Point maximum increases by an amount equal to twice your level."
+  }
+}

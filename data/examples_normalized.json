@@ -1,0 +1,41 @@
+{
+  "classes": [
+    {
+      "id": "fighter",
+      "name": "Fighter",
+      "hit_die": 10,
+      "primary_abilities": ["str", "dex"],
+      "progression": {
+        "1": ["second_wind", "fighting_style"],
+        "2": ["action_surge"],
+        "3": ["subclass_choice"]
+      }
+    }
+  ],
+  "backgrounds": [
+    {
+      "id": "farmer",
+      "name": "Farmer",
+      "asi_options": ["str", "con", "wis"],
+      "feat_id": "tough",
+      "skill_ids": ["animal_handling", "nature"]
+    }
+  ],
+  "species": [
+    {
+      "id": "elf",
+      "name": "Elf",
+      "size": "Medium",
+      "speed": 30,
+      "feature_ids": ["darkvision", "fey_ancestry"]
+    }
+  ],
+  "feats": [
+    {
+      "id": "tough",
+      "name": "Tough",
+      "category": "Origin",
+      "feature_id": "tough_feature"
+    }
+  ]
+}

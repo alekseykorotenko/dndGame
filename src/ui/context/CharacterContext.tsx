@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { AbilityType } from '../lib/dndData';
+import { AbilityType } from '../../engine/adapters/dndData';
 
 // Головний інтерфейс стану нашого персонажа
 export interface CharacterState {

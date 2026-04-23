@@ -58,6 +58,14 @@ export function performD20Test(
 }
 
 /**
+ * Heroic Inspiration (D&D 2024)
+ * Allows a player to reroll any D20 test roll and use the new result.
+ */
+export function applyHeroicInspiration(originalRoll: number): number {
+    return Math.floor(Math.random() * 20) + 1;
+}
+
+/**
  * Attack Roll Modifier Calculation (Weapon)
  * Finesse weapons can use Str or Dex.
  */

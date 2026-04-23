@@ -3,8 +3,8 @@ import { useCharacterContext } from '../context/CharacterContext';
 import { 
   classesData, speciesData, backgroundsData, featsData, spellsData,
   abilityNames, AbilityType, standardArray, calculateModifier 
-} from '../lib/dndData';
-import { calculateLevelStats } from '../lib/classProgression';
+} from '../../engine/adapters/dndData';
+import { calculateLevelStats } from '../../engine/adapters/classProgression';
 import { CheckCircle2, Star, Backpack, User, Zap } from 'lucide-react';
 import ActiveCharacterCard from './ActiveCharacterCard';
 
@@ -481,7 +481,7 @@ export function StepEquipment() {
   );
 }
 
-import { weaponMasteriesData } from '../lib/dndData';
+import { weaponMasteriesData } from '../../engine/adapters/dndData';
 import { Sword } from 'lucide-react';
 
 export function StepWeaponMastery() {

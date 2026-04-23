@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { useCharacterContext } from '../context/CharacterContext';
-import { classesData, speciesData, backgroundsData, featsData, spellsData } from '../lib/dndData';
-import { calculateLevelStats } from '../lib/classProgression';
+import { classesData, speciesData, backgroundsData, featsData, spellsData } from '../../engine/adapters/dndData';
+import { calculateLevelStats } from '../../engine/adapters/classProgression';
 import { Shield, Heart, Zap, Dna, BookOpen, Star, Sparkles, Wand2, Sword } from 'lucide-react';
-import { weaponMasteriesData } from '../lib/dndData';
+import { weaponMasteriesData } from '../../engine/adapters/dndData';
 
 export default function ActiveCharacterCard() {
   const { char, setChar, getFinalAbility } = useCharacterContext();

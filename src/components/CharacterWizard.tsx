@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Dna, BrainCircuit, Star, Backpack, User, ChevronRight, ChevronLeft, CheckCircle2, Zap } from 'lucide-react';
+import { Shield, Dna, BrainCircuit, Star, Backpack, User, ChevronRight, ChevronLeft, CheckCircle2, Zap, Sword } from 'lucide-react';
 import { CharacterProvider, useCharacterContext } from '../context/CharacterContext';
 import { 
   StepClass, 
@@ -8,6 +8,7 @@ import {
   StepAbilities, 
   StepFeats, 
   StepEquipment, 
+  StepWeaponMastery,
   StepSummary 
 } from './WizardSteps';
 
@@ -19,13 +20,14 @@ const WIZARD_STEPS_CONFIG = [
   { id: 4, title: 'Характеристики', icon: BrainCircuit, desc: 'Базові параметри' },
   { id: 5, title: 'Риси', icon: Star, desc: 'Здібності' },
   { id: 6, title: 'Спорядження', icon: Backpack, desc: 'Інвентар' },
-  { id: 7, title: 'Підсумок', icon: User, desc: 'Лист персонажа' },
+  { id: 7, title: 'Майстерність', icon: Sword, desc: 'Бойові прийоми' },
+  { id: 8, title: 'Підсумок', icon: User, desc: 'Лист персонажа' },
 ];
 
 function WizardContent() {
   const { currentStep, setCurrentStep } = useCharacterContext();
 
-  const handleNext = () => setCurrentStep(p => Math.min(7, p + 1));
+  const handleNext = () => setCurrentStep(p => Math.min(8, p + 1));
   const handlePrev = () => setCurrentStep(p => Math.max(1, p - 1));
 
   return (
@@ -80,7 +82,8 @@ function WizardContent() {
              {currentStep === 4 && <StepAbilities />}
              {currentStep === 5 && <StepFeats />}
              {currentStep === 6 && <StepEquipment />}
-             {currentStep === 7 && <StepSummary />}
+             {currentStep === 7 && <StepWeaponMastery />}
+             {currentStep === 8 && <StepSummary />}
           </div>
 
           <div className="mt-8 flex justify-between items-center border-t border-slate-200 pt-6">
@@ -93,10 +96,10 @@ function WizardContent() {
             </button>
             <button
               onClick={handleNext}
-              disabled={currentStep === 7}
+              disabled={currentStep === 8}
               className="flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-md transition-all disabled:opacity-30"
             >
-              {currentStep === 6 ? 'Перейти до Підсумку' : 'Далі'} <ChevronRight className="w-5 h-5" />
+              {currentStep === 7 ? 'Перейти до Підсумку' : 'Далі'} <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>

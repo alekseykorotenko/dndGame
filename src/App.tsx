@@ -4,14 +4,13 @@
  */
 
 import React, { useState } from 'react';
-import CharacterWizard from './components/CharacterWizard';
-import AIAssistant from './components/AIAssistant';
-import CharacterSheet from './components/CharacterSheet';
-import SpellsCatalog from './components/SpellsCatalog';
-import { Sparkles, LayoutTemplate, Settings2, FileText, Book } from 'lucide-react';
+import CharacterWizard from './ui/components/CharacterWizard';
+import CharacterSheet from './ui/components/CharacterSheet';
+import SpellsCatalog from './ui/components/SpellsCatalog';
+import { LayoutTemplate, Settings2, FileText, Book } from 'lucide-react';
 
 export default function App() {
-  const [mode, setMode] = useState<'manual' | 'ai' | 'sheet' | 'spells'>('manual');
+  const [mode, setMode] = useState<'manual' | 'sheet' | 'spells'>('manual');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF9F6]">
@@ -39,18 +38,6 @@ export default function App() {
                 <LayoutTemplate className="w-4 h-4" />
                 <span className="hidden sm:inline">Створення</span>
                 <span className="sm:hidden">Мануал</span>
-              </button>
-              <button
-                onClick={() => setMode('ai')}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl font-medium transition-all whitespace-nowrap ${
-                  mode === 'ai' 
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-sm' 
-                    : 'text-slate-600 hover:bg-slate-200/50 hover:text-slate-900'
-                }`}
-              >
-                <Sparkles className="w-4 h-4" />
-                <span className="hidden sm:inline">ШІ-Помічник</span>
-                <span className="sm:hidden">ШІ</span>
               </button>
               <button
                 onClick={() => setMode('sheet')}
@@ -89,7 +76,6 @@ export default function App() {
 
       <main className="flex-1 w-full bg-slate-50/50 print:bg-white text-slate-900">
         {mode === 'manual' && <CharacterWizard />}
-        {mode === 'ai' && <AIAssistant />}
         {mode === 'sheet' && <CharacterSheet />}
         {mode === 'spells' && <SpellsCatalog />}
       </main>

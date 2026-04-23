@@ -1,10 +1,10 @@
-import rawClasses from '../../data/classes.json';
-import rawSpecies from '../../data/species.json';
-import rawBackgrounds from '../../data/backgrounds.json';
-import rawFeats from '../../data/feats.json';
-import rawSubclasses from '../../data/subclasses.json';
-import rawSpells from '../../data/spells.json';
-import rawWeaponMasteries from '../../data/weaponMasteries.json';
+import rawClasses from '../../../data/classes.json';
+import rawSpecies from '../../../data/species.json';
+import rawBackgrounds from '../../../data/backgrounds.json';
+import rawFeats from '../../../data/feats.json';
+import rawSubclasses from '../../../data/subclasses.json';
+import rawSpells from '../../../data/spells.json';
+import rawWeaponMasteries from '../../../data/weaponMasteries.json';
 
 export type AbilityType = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
 
