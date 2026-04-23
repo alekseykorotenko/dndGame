@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCharacterContext } from '../context/CharacterContext';
 import { 
-  classesData, speciesData, backgroundsData, featsData, 
+  classesData, speciesData, backgroundsData, featsData, spellsData,
   abilityNames, AbilityType, standardArray, calculateModifier 
 } from '../lib/dndData';
 import { calculateLevelStats } from '../lib/classProgression';
@@ -46,8 +46,21 @@ export function StepLevel() {
   const { char, setChar, getFinalAbility } = useCharacterContext();
   const currentClass = classesData.find(c => c.id === char.classId);
   const conScore = getFinalAbility('con');
+  
+  const currentSubclass = currentClass?.subclasses?.find(s => s.id === char.subclassId);
+  const stats = currentClass ? calculateLevelStats(currentClass.id, char.level, currentClass.hitDie, conScore, currentClass.featuresByLevel, currentSubclass?.featuresByLevel) : null;
 
-  const stats = currentClass ? calculateLevelStats(currentClass.id, char.level, currentClass.hitDie, conScore) : null;
+  // У D&D 2024 всі класи отримують підклас на 3 рівні
+  const needsSubclass = char.level >= 3 && currentClass;
+
+  // Автоматичний скид або вибір підкласу при зміні рівня
+  React.useEffect(() => {
+    if (char.level < 3 && char.subclassId !== null) {
+      setChar(prev => ({ ...prev, subclassId: null }));
+    } else if (char.level >= 3 && char.subclassId === null && currentClass?.subclasses?.length) {
+      setChar(prev => ({ ...prev, subclassId: currentClass.subclasses[0].id }));
+    }
+  }, [char.level, char.subclassId, currentClass, setChar]);
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
@@ -69,6 +82,29 @@ export function StepLevel() {
           <div className="text-2xl font-black text-indigo-600 w-12 text-center">{char.level}</div>
         </div>
       </div>
+
+      {needsSubclass && (
+        <div className="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-200 shadow-sm animate-in fade-in slide-in-from-top-4">
+          <label className="block text-sm font-bold text-slate-700 mb-3">
+            Підклас ({currentClass.name}):
+          </label>
+          <select 
+            value={char.subclassId || ''}
+            onChange={(e) => setChar({ ...char, subclassId: e.target.value })}
+            className="w-full bg-white border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-800 shadow-sm"
+          >
+            <option value="" disabled>Оберіть підклас...</option>
+            {currentClass.subclasses?.map(sub => (
+              <option key={sub.id} value={sub.id}>{sub.name}</option>
+            ))}
+          </select>
+          {currentSubclass && (
+            <p className="mt-3 text-sm text-slate-600">
+              {currentSubclass.description}
+            </p>
+          )}
+        </div>
+      )}
 
       {stats && (
         <div className="grid md:grid-cols-2 gap-4">
@@ -103,8 +139,13 @@ export function StepLevel() {
 
           {stats.spellSlots && (
             <div className="md:col-span-2 bg-indigo-50 p-5 rounded-xl border border-indigo-100">
-              <h4 className="font-bold text-indigo-900 mb-3">Комірки Заклинань (Spell Slots)</h4>
-              <div className="flex flex-wrap gap-2 text-sm">
+              <div className="flex justify-between items-center mb-4 border-b border-indigo-200 pb-2">
+                 <h4 className="font-bold text-indigo-900">Комірки Заклинань та Доступна Магія</h4>
+                 <div className="text-xs font-bold text-indigo-600 uppercase bg-white px-2 py-1 rounded shadow-sm">
+                    {currentClass.name}
+                 </div>
+              </div>
+              <div className="flex flex-wrap gap-2 text-sm mb-4">
                 {stats.spellSlots.standard && stats.spellSlots.standard.map((slots, i) => (
                   <div key={i} className="bg-white border border-indigo-200 px-3 py-1.5 rounded-lg flex flex-col items-center">
                     <span className="text-[10px] text-indigo-400 font-bold uppercase">Рівень {i + 1}</span>
@@ -113,10 +154,25 @@ export function StepLevel() {
                 ))}
                 {stats.spellSlots.warlockPact && stats.spellSlots.warlockPact.slotsCount > 0 && (
                   <div className="bg-purple-100 border border-purple-300 px-4 py-2 rounded-lg flex flex-col items-center">
-                    <span className="text-[10px] text-purple-600 font-bold uppercase">Магія Договору (Рвн. {stats.spellSlots.warlockPact.slotLevel})</span>
+                    <span className="text-[10px] text-purple-600 font-bold uppercase">Магія {stats.spellSlots.warlockPact.slotLevel} рівня</span>
                     <span className="font-black text-purple-900">{stats.spellSlots.warlockPact.slotsCount} комірок</span>
                   </div>
                 )}
+              </div>
+              
+              <div className="mt-4 pt-3 border-t border-indigo-200/50">
+                <p className="text-xs font-bold text-indigo-800 uppercase mb-2">Заклинання у вашому розпорядженні:</p>
+                <div className="flex flex-wrap gap-1.5">
+                   {spellsData
+                     .filter(s => s.classes.includes(currentClass.id) && 
+                        s.level <= (stats.spellSlots?.standard?.length || stats.spellSlots?.warlockPact?.slotLevel || 0))
+                     .map(spell => (
+                       <span key={spell.id} className="text-[10px] bg-white text-indigo-700 border border-indigo-100 px-2 py-1 rounded font-medium">
+                         {spell.name} {spell.level === 0 ? '(Фокус)' : `(${spell.level})`}
+                       </span>
+                     ))
+                   }
+                </div>
               </div>
             </div>
           )}
@@ -140,7 +196,13 @@ export function StepOrigin() {
             <button
               key={sp.id}
               onClick={() => {
-                setChar(prev => ({ ...prev, speciesId: sp.id, extraFeatId: sp.id === 'human' ? prev.extraFeatId : null }));
+                const firstSubtype = sp.subtypes && sp.subtypes.length > 0 ? sp.subtypes[0].id : null;
+                setChar(prev => ({ 
+                  ...prev, 
+                  speciesId: sp.id, 
+                  subtypeId: firstSubtype,
+                  extraFeatId: sp.id === 'human' ? prev.extraFeatId : null 
+                }));
               }}
               className={`text-left p-4 rounded-xl border-2 transition-all ${
                 char.speciesId === sp.id ? 'border-amber-500 bg-amber-50' : 'border-slate-200 hover:border-amber-200'
@@ -152,6 +214,28 @@ export function StepOrigin() {
           ))}
         </div>
       </div>
+
+      {char.speciesId && speciesData.find(s => s.id === char.speciesId)?.subtypes && speciesData.find(s => s.id === char.speciesId)!.subtypes.length > 0 && (
+        <div className="space-y-4 bg-amber-50/50 p-4 rounded-2xl border border-amber-200 animate-in fade-in slide-in-from-top-4">
+          <h4 className="font-bold text-slate-800">Підвид ({speciesData.find(s => s.id === char.speciesId)?.name})</h4>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {speciesData.find(s => s.id === char.speciesId)?.subtypes.map(sub => (
+              <button
+                key={sub.id}
+                onClick={() => setChar(prev => ({ ...prev, subtypeId: sub.id }))}
+                className={`text-left p-3 rounded-lg border-2 transition-all ${
+                  char.subtypeId === sub.id ? 'border-amber-500 bg-white shadow-sm' : 'border-slate-200 bg-white hover:border-amber-300'
+                }`}
+              >
+                <div className="font-bold text-sm text-slate-900">{sub.name}</div>
+                <ul className="mt-2 text-xs text-slate-600 space-y-1">
+                  {sub.traits.map((t: string, i: number) => <li key={i}>• {t}</li>)}
+                </ul>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-200">
         <h3 className="text-lg font-bold text-slate-800 border-b pb-2">2. Оберіть Передісторію (Background)</h3>
@@ -394,7 +478,18 @@ export function StepSummary() {
   const [isSaving, setIsSaving] = React.useState(false);
   const [saveMessage, setSaveMessage] = React.useState<{type: 'success' | 'error', text: string} | null>(null);
 
-  const isComplete = char.classId && char.speciesId && char.backgroundId && char.equipmentPackId && !Object.values(char.baseAbilities).includes(null);
+  const currentSpecies = speciesData.find(s => s.id === char.speciesId);
+  const needsSubtype = currentSpecies && currentSpecies.subtypes && currentSpecies.subtypes.length > 0;
+  const needsSubclass = char.level >= 3 && char.classId !== null;
+  const isComplete = Boolean(
+    char.classId && 
+    char.speciesId && 
+    char.backgroundId && 
+    char.equipmentPackId && 
+    !Object.values(char.baseAbilities).includes(null) &&
+    (!needsSubtype || char.subtypeId) &&
+    (!needsSubclass || char.subclassId)
+  );
 
   const handleSave = async () => {
     setIsSaving(true);

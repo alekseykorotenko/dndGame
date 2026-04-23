@@ -53,64 +53,14 @@ const warlockPactSlots = [
   { slotsCount: 4, slotLevel: 5 }, { slotsCount: 4, slotLevel: 5 }
 ];
 
-// Базові здібності класів D&D 2024
-const classFeaturesMap: Record<string, Record<number, string[]>> = {
-  barbarian: {
-    1: ['Лють (Rage)', 'Захист без броні (Unarmored Defense)', 'Майстерність зброї (Weapon Mastery)'],
-    2: ['Безвідповідальна атака (Reckless Attack)', 'Відчуття небезпеки (Danger Sense)'],
-    3: ['Особливість підкласу', 'Первісне знання (Primal Knowledge)'],
-    4: ['Покращення характеристик / Риса'],
-    5: ['Додаткова атака', 'Швидкий рух (Fast Movement)'],
-    7: ['Дикий інстинкт (Feral Instinct) / Ривок'],
-    9: ['Брутальний критичний удар (Brutal Critical)'],
-    11: ['Нестримна лють (Relentless Rage)'],
-    20: ['Первісний чемпіон (Primal Champion)']
-  },
-  fighter: {
-    1: ['Бойовий стиль (Fighting Style)', 'Друге дихання (Second Wind)', 'Майстерність зброї'],
-    2: ['Сплеск дій (Action Surge)'],
-    3: ['Особливість підкласу'],
-    4: ['Покращення характеристик / Риса'],
-    5: ['Додаткова атака'],
-    6: ['Покращення характеристик / Риса'],
-    9: ['Незламний (Indomitable)'],
-    11: ['Додаткова атака (3 атаки)'],
-    20: ['Додаткова атака (4 атаки)']
-  },
-  rogue: {
-    1: ['Прихована атака (Sneak Attack)', 'Компетентність (Expertise)', 'Майстерність зброї'],
-    2: ['Хитра дія (Cunning Action)'],
-    3: ['Особливість підкласу'],
-    4: ['Покращення характеристик / Риса'],
-    5: ['Неймовірне ухилення (Uncanny Dodge)', 'Коварний удар (Cunning Strike)'],
-    7: ['Ухилення (Evasion)'],
-    11: ['Надійне вміння (Reliable Talent)'],
-    20: ['Удар смерті (Stroke of Luck)']
-  },
-  cleric: {
-    1: ['Божественний домен (Domain)', 'Магія жерця'],
-    2: ['Божественний канал (Channel Divinity)'],
-    3: ['Особливість підкласу'], // 2024 changes domains a bit but level 3 is subclass features traditionally or new uniformity
-    4: ['Покращення характеристик / Риса'],
-    5: ['Знищення нежиті (Destroy Undead)'],
-    8: ['Божественний удар / Могутнє чаклунство'],
-    10: ['Божественне втручання (Divine Intervention)']
-  },
-  wizard: {
-    1: ['Магія Чарівника', 'Містичне Відновлення (Arcane Recovery)'],
-    2: ['Вчений (Scholar)'],
-    3: ['Особливість підкласу'],
-    4: ['Покращення характеристик / Риса'],
-    18: ['Майстерність У Заклинаннях (Spell Mastery)'],
-    20: ['Характерні Заклинання (Signature Spells)']
-  }
-};
-
+// Базові здібності класів збираються з масивів прогресії, які повинні бути у JSON
 export function calculateLevelStats(
   classId: string,
   level: number,
   hitDie: number,
-  conScore: number
+  conScore: number,
+  baseFeaturesByLevel?: Record<string, string[]>,
+  subclassFeaturesByLevel?: Record<string, string[]>
 ): LevelStats {
   // Бонус майстерності
   const proficiencyBonus = Math.ceil(level / 4) + 1;
@@ -119,7 +69,7 @@ export function calculateLevelStats(
   const conMod = calculateModifier(conScore);
   const hpAtFirstLevel = hitDie + conMod;
   const hpGainPerLevel = Math.floor(hitDie / 2) + 1 + conMod;
-  const hitPoints = hpAtFirstLevel + hpGainPerLevel * (level - 1);
+  const hitPoints = Math.max(1, hpAtFirstLevel + hpGainPerLevel * (level - 1));
 
   // Комірки заклинань
   let spellSlots: SpellSlots | null = null;
@@ -142,17 +92,13 @@ export function calculateLevelStats(
       spellSlots = null;
   }
 
-  // Особливості класу
-  const featuresMap = classFeaturesMap[classId] || {};
-  let features: string[] = [];
-  
-  // Якщо хочемо повертати ТІЛЬКИ ті, що відкрилися на поточному рівні:
-  if (featuresMap[level]) {
-    features = featuresMap[level];
-  } else {
-    // Дефолт (якщо не прописано)
-    if (level === 3) features = ['Особливість підкласу'];
-    if (level === 4 || level === 8 || level === 12 || level === 16 || level === 19) features = ['Покращення характеристик / Риса'];
+  const features: string[] = [];
+  const lvlStr = level.toString();
+  if (baseFeaturesByLevel && baseFeaturesByLevel[lvlStr]) {
+    features.push(...baseFeaturesByLevel[lvlStr]);
+  }
+  if (subclassFeaturesByLevel && subclassFeaturesByLevel[lvlStr]) {
+    features.push(...subclassFeaturesByLevel[lvlStr]);
   }
 
   return {

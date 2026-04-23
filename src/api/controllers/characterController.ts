@@ -8,7 +8,7 @@ import path from 'path';
  */
 export const listData = async (req: Request, res: Response) => {
   try {
-    const dataDir = path.join(process.cwd(), 'src/data');
+    const dataDir = path.join(process.cwd(), 'data');
     
     // Read all individual JSON files
     const classes = JSON.parse(fs.readFileSync(path.join(dataDir, 'classes.json'), 'utf-8'));

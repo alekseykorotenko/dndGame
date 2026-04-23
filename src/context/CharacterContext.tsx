@@ -5,7 +5,9 @@ import { AbilityType } from '../lib/dndData';
 export interface CharacterState {
   level: number;
   classId: string | null;
+  subclassId: string | null;
   speciesId: string | null;
+  subtypeId: string | null;
   backgroundId: string | null;
   backgroundAsi: {
     plusTwo: AbilityType | null;
@@ -38,7 +40,9 @@ export function CharacterProvider({ children }: { children: ReactNode }) {
   const [char, setChar] = useState<CharacterState>({
     level: 1,
     classId: null,
+    subclassId: null,
     speciesId: null,
+    subtypeId: null,
     backgroundId: null,
     backgroundAsi: { plusTwo: null, plusOne: null },
     baseAbilities: { ...INITIAL_BASE },

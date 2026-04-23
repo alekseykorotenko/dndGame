@@ -7,10 +7,11 @@ import React, { useState } from 'react';
 import CharacterWizard from './components/CharacterWizard';
 import AIAssistant from './components/AIAssistant';
 import CharacterSheet from './components/CharacterSheet';
-import { Sparkles, LayoutTemplate, Settings2, FileText } from 'lucide-react';
+import SpellsCatalog from './components/SpellsCatalog';
+import { Sparkles, LayoutTemplate, Settings2, FileText, Book } from 'lucide-react';
 
 export default function App() {
-  const [mode, setMode] = useState<'manual' | 'ai' | 'sheet'>('manual');
+  const [mode, setMode] = useState<'manual' | 'ai' | 'sheet' | 'spells'>('manual');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF9F6]">
@@ -63,6 +64,18 @@ export default function App() {
                 <span className="hidden sm:inline">Аркуш Персонажа</span>
                 <span className="sm:hidden">Аркуш</span>
               </button>
+              <button
+                onClick={() => setMode('spells')}
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl font-medium transition-all whitespace-nowrap ${
+                  mode === 'spells' 
+                    ? 'bg-white text-indigo-600 shadow-sm border border-slate-200' 
+                    : 'text-slate-600 hover:bg-slate-200/50 hover:text-slate-900'
+                }`}
+              >
+                <Book className="w-4 h-4" />
+                <span className="hidden sm:inline">Заклинання</span>
+                <span className="sm:hidden">Магія</span>
+              </button>
             </nav>
 
             <div className="text-right hidden md:block">
@@ -78,6 +91,7 @@ export default function App() {
         {mode === 'manual' && <CharacterWizard />}
         {mode === 'ai' && <AIAssistant />}
         {mode === 'sheet' && <CharacterSheet />}
+        {mode === 'spells' && <SpellsCatalog />}
       </main>
       
       <footer className="py-6 text-center text-slate-400 text-xs font-medium uppercase tracking-widest bg-white border-t border-slate-200 print:hidden">

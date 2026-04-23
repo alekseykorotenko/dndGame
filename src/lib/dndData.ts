@@ -1,9 +1,9 @@
-import rawClasses from '../data/classes.json';
-import rawSpecies from '../data/species.json';
-import rawBackgrounds from '../data/backgrounds.json';
-import rawFeats from '../data/feats.json';
-import rawSubclasses from '../data/subclasses.json';
-import rawSpells from '../data/spells.json';
+import rawClasses from '../../data/classes.json';
+import rawSpecies from '../../data/species.json';
+import rawBackgrounds from '../../data/backgrounds.json';
+import rawFeats from '../../data/feats.json';
+import rawSubclasses from '../../data/subclasses.json';
+import rawSpells from '../../data/spells.json';
 
 export type AbilityType = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
 
@@ -24,6 +24,13 @@ const mapAbilities = (abilities: string[]): AbilityType[] => {
   return abilities.map(a => a.substring(0, 3) as AbilityType);
 };
 
+export interface ClassSubclassDef {
+  id: string;
+  name: string;
+  description: string;
+  featuresByLevel: Record<string, string[]>;
+}
+
 export interface ClassDef {
   id: string;
   name: string;
@@ -31,46 +38,89 @@ export interface ClassDef {
   primaryAbility: AbilityType;
   hitDie: number;
   equipmentPacks: { id: string; name: string; items: string[] }[];
+  featuresByLevel: Record<string, string[]>;
+  subclasses: ClassSubclassDef[];
 }
 
-// Fallback equipment packs
-const defaultEquipment: Record<string, { id: string; name: string; items: string[] }[]> = {
-  barbarian: [{ id: 'explorer', name: 'Набір дослідника', items: ['Рюкзак', 'Спальник'] }],
-  bard: [{ id: 'entertainer', name: 'Набір артиста', items: ['Рюкзак', 'Спальник', 'Музичний інструмент'] }],
-  cleric: [{ id: 'priest', name: 'Набір священика', items: ['Булава', 'Кільцева броня', 'Священний символ'] }],
-  druid: [{ id: 'explorer', name: 'Набір дослідника', items: ['Щит деревяний', 'Шкіряна броня'] }],
-  fighter: [{ id: 'defense', name: 'Набір Захисника', items: ['Кольчуга', 'Довгий меч', 'Щит'] }, { id: 'attack', name: 'Набір Атакуючого', items: ['Шкіряна броня', 'Великий меч'] }],
-  monk: [{ id: 'dungeoneer', name: 'Набір підземелля', items: ['Рюкзак', 'Кинджали'] }],
-  paladin: [{ id: 'priest', name: 'Набір священика', items: ['Кольчуга', 'Довгий меч', 'Щит', 'Священний символ'] }],
-  ranger: [{ id: 'explorer', name: 'Набір дослідника', items: ['Коротка лук', 'Шкіряна броня'] }],
-  rogue: [{ id: 'burglar', name: 'Набір зломщика', items: ['Рапіра', 'Короткий лук', 'Інструменти злодія'] }],
-  sorcerer: [{ id: 'explorer', name: 'Набір дослідника', items: ['Кинджали'] }],
-  warlock: [{ id: 'scholar', name: 'Набір вченого', items: ['Магічна книга', 'Паличка'] }],
-  wizard: [{ id: 'scholar', name: 'Набір вченого', items: ['Книга заклинань', 'Кристал (фокус)'] }]
-};
+export const classesData: ClassDef[] = rawClasses.map((c: any) => {
+  if (!c.equipmentPacks || c.equipmentPacks.length === 0) {
+    throw new Error(`Critical Error: Missing equipmentPacks for class ${c.id}. Do not guess data!`);
+  }
+  if (!c.hit_die) {
+    throw new Error(`Critical Error: Missing hit_die for class ${c.id}`);
+  }
+  if (!c.features_by_level) {
+    throw new Error(`Critical Error: Missing features_by_level for class ${c.id}`);
+  }
+  if (!c.subclasses) {
+    throw new Error(`Critical Error: Missing subclasses for class ${c.id}`);
+  }
 
-export const classesData: ClassDef[] = rawClasses.map(c => ({
-  id: c.id,
-  name: c.name_ua,
-  description: c.description,
-  primaryAbility: mapAbilities(c.primary_abilities)[0],
-  hitDie: parseInt(c.hit_die.replace('1d', '')),
-  equipmentPacks: defaultEquipment[c.id] || [{ id: 'standard', name: 'Стандартний набір', items: ['Рюкзак'] }]
-}));
+  const normalizeFeatures = (src: any): Record<string, string[]> => {
+    if (!src) return {};
+    const res: Record<string, string[]> = {};
+    for (const key in src) {
+      if (Array.isArray(src[key])) {
+        const valid = src[key].filter((val: any) => typeof val === 'string' && val.trim().length > 0);
+        if (valid.length > 0) res[key] = valid;
+      } else if (typeof src[key] === 'string' && src[key].trim().length > 0) {
+        res[key] = [src[key]];
+      }
+    }
+    return res;
+  };
+
+  return {
+    id: c.id,
+    name: c.name_ua,
+    description: c.description,
+    primaryAbility: mapAbilities(c.primary_abilities)[0],
+    hitDie: parseInt(c.hit_die.replace('1d', '')),
+    equipmentPacks: c.equipmentPacks,
+    featuresByLevel: normalizeFeatures(c.features_by_level),
+    subclasses: c.subclasses.map((s: any) => ({
+      id: s.id,
+      name: s.name_ua,
+      description: s.description,
+      featuresByLevel: normalizeFeatures(s.features_by_level)
+    }))
+  };
+});
+
+export interface SpeciesSubtypeDef {
+  id: string;
+  name: string;
+  traits: string[];
+  features: string[];
+}
 
 export interface SpeciesDef {
   id: string;
   name: string;
   description: string;
   traits: string[];
+  features: string[];
+  subtypes: SpeciesSubtypeDef[];
 }
 
-export const speciesData: SpeciesDef[] = rawSpecies.map(s => ({
-  id: s.id,
-  name: s.name_ua,
-  description: s.features.join('. '),
-  traits: s.traits
-}));
+export const speciesData: SpeciesDef[] = rawSpecies.map((s: any) => {
+  if (!s.traits || s.traits.length === 0) {
+    throw new Error(`Critical Error: Missing traits for species ${s.id}`);
+  }
+  return {
+    id: s.id,
+    name: s.name_ua,
+    description: s.description || (s.features ? s.features.join('. ') : ''),
+    traits: s.traits,
+    features: s.features || [],
+    subtypes: s.subtypes ? s.subtypes.map((sub: any) => ({
+      id: sub.id,
+      name: sub.name_ua,
+      traits: sub.traits || [],
+      features: sub.features || []
+    })) : []
+  };
+});
 
 export interface FeatDef {
   id: string;
@@ -79,7 +129,7 @@ export interface FeatDef {
   isOrigin: boolean;
 }
 
-export const featsData: FeatDef[] = rawFeats.map(f => ({
+export const featsData: FeatDef[] = rawFeats.map((f: any) => ({
   id: f.id,
   name: f.name_ua,
   description: f.description,
@@ -96,14 +146,48 @@ export interface BackgroundDef {
   originFeatName: string;
 }
 
-export const backgroundsData: BackgroundDef[] = rawBackgrounds.map(b => ({
-  id: b.id,
-  name: b.name_ua,
-  description: b.description + (b.equipment ? ' Спорядження: ' + b.equipment.join(', ') : ''),
-  featId: b.origin_feat.id,
-  asiOptions: b.ability_bonuses.options as AbilityType[],
-  defaultDistribution: b.ability_bonuses.default_distribution as Partial<Record<AbilityType, number>>,
-  originFeatName: b.origin_feat.name_ua
+export const backgroundsData: BackgroundDef[] = rawBackgrounds.map((b: any) => {
+  if (!b.origin_feat || !b.origin_feat.id || !b.origin_feat.name_ua) {
+    throw new Error(`Critical Error: Missing origin_feat for background ${b.id}`);
+  }
+  if (!b.ability_bonuses || !b.ability_bonuses.options || !b.ability_bonuses.default_distribution) {
+    throw new Error(`Critical Error: Missing ability_bonuses for background ${b.id}`);
+  }
+  return {
+    id: b.id,
+    name: b.name_ua,
+    description: b.description + (b.equipment ? ' Спорядження: ' + b.equipment.join(', ') : ''),
+    featId: b.origin_feat.id,
+    asiOptions: b.ability_bonuses.options as AbilityType[],
+    defaultDistribution: b.ability_bonuses.default_distribution as Partial<Record<AbilityType, number>>,
+    originFeatName: b.origin_feat.name_ua
+  };
+});
+
+export interface SpellDef {
+  id: string;
+  name: string;
+  level: number;
+  school: string;
+  castingTime: string;
+  range: string;
+  components: string[];
+  duration: string;
+  description: string;
+  classes: string[];
+}
+
+export const spellsData: SpellDef[] = rawSpells.map((s: any) => ({
+  id: s.id,
+  name: s.name_ua,
+  level: s.level,
+  school: s.school,
+  castingTime: s.casting_time,
+  range: s.range,
+  components: s.components,
+  duration: s.duration,
+  description: s.description,
+  classes: s.classes
 }));
 
 export function calculateModifier(score: number): number {
