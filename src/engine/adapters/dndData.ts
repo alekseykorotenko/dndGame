@@ -154,13 +154,21 @@ export const backgroundsData: BackgroundDef[] = rawBackgrounds.map((b: any) => {
   if (!b.ability_bonuses || !b.ability_bonuses.options || !b.ability_bonuses.default_distribution) {
     throw new Error(`Critical Error: Missing ability_bonuses for background ${b.id}`);
   }
+
+  const asiOptions = mapAbilities(b.ability_bonuses.options);
+  const defaultDistribution: Partial<Record<AbilityType, number>> = {};
+  for (const key in b.ability_bonuses.default_distribution) {
+    const mappedKey = key.substring(0, 3).toLowerCase() as AbilityType;
+    defaultDistribution[mappedKey] = b.ability_bonuses.default_distribution[key];
+  }
+
   return {
     id: b.id,
     name: b.name_ua,
     description: b.description + (b.equipment ? ' Спорядження: ' + b.equipment.join(', ') : ''),
     featId: b.origin_feat.id,
-    asiOptions: b.ability_bonuses.options as AbilityType[],
-    defaultDistribution: b.ability_bonuses.default_distribution as Partial<Record<AbilityType, number>>,
+    asiOptions,
+    defaultDistribution,
     originFeatName: b.origin_feat.name_ua
   };
 });
@@ -178,17 +186,17 @@ export interface SpellDef {
   classes: string[];
 }
 
-export const spellsData: SpellDef[] = rawSpells.map((s: any) => ({
+export const spellsData: SpellDef[] = (Array.isArray(rawSpells) ? rawSpells : (rawSpells as any).spells || []).map((s: any) => ({
   id: s.id,
-  name: s.name_ua,
+  name: s.name,
   level: s.level,
   school: s.school,
-  castingTime: s.casting_time,
+  castingTime: s.castingTime,
   range: s.range,
   components: s.components,
   duration: s.duration,
-  description: s.description,
-  classes: s.classes
+  description: s.description || '',
+  classes: Array.isArray(s.classes) ? s.classes : [s.classes]
 }));
 
 export interface WeaponMasteryDef {

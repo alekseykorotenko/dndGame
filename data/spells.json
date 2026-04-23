@@ -1,218 +1,1404 @@
-[
-  {
-    "id": "acid_splash",
-    "name_ua": "Бризки кислоти",
-    "level": 0,
-    "school": "evocation",
-    "casting_time": "1 Action",
-    "range": "60 ft",
-    "components": ["V", "S"],
-    "duration": "Instantaneous",
-    "description": "Кидок кислоти на 1 або 2 цілі (поруч). Рятівний кидок Спритності або 1d6 кислотної шкоди. (Шкода: 2d6 на 5-му, 3d6 на 11-му, 4d6 на 17-му рівні).",
-    "classes": ["artificer", "sorcerer", "wizard"]
-  },
-  {
-    "id": "eldritch_blast",
-    "name_ua": "Містичний вибух",
-    "level": 0,
-    "school": "evocation",
-    "casting_time": "1 Action",
-    "range": "120 ft",
-    "components": ["V", "S"],
-    "duration": "Instantaneous",
-    "description": "Класична атака Чорнокнижника. Дальнобійна магічна атака; влучення завдає 1d10 шкоди Силою (Force). Випускає більше променів на 5-му, 11-му та 17-му рівнях.",
-    "classes": ["warlock"]
-  },
-  {
-    "id": "cure_wounds",
-    "name_ua": "Зцілення ран",
-    "level": 1,
-    "school": "abjuration",
-    "casting_time": "1 Action",
-    "range": "Touch",
-    "components": ["V", "S"],
-    "duration": "Instantaneous",
-    "description": "(Оновлено 2024: тепер кубики лікування = 2d8). Істота, якої ви торкаєтеся, відновлює 2d8 + ваш модифікатор чаклування ПЗ.",
-    "classes": ["artificer", "bard", "cleric", "druid", "paladin", "ranger"]
-  },
-  {
-    "id": "shield",
-    "name_ua": "Щит",
-    "level": 1,
-    "school": "abjuration",
-    "casting_time": "1 Reaction",
-    "range": "Self",
-    "components": ["V", "S"],
-    "duration": "1 Round",
-    "description": "Використовується, коли вас атакують або б'є 'Магічна стріла'. Надає +5 до Класу Броні (КБ) до початку вашого наступного ходу та імунітет до 'Магічних стріл'.",
-    "classes": ["sorcerer", "wizard"]
-  },
-  {
-    "id": "magic_missile",
-    "name_ua": "Магічна стріла",
-    "level": 1,
-    "school": "evocation",
-    "casting_time": "1 Action",
-    "range": "120 ft",
-    "components": ["V", "S"],
-    "duration": "Instantaneous",
-    "description": "Створює 3 дротики магічної енергії. Кожен з них беззаперечно (без кидка атаки) влучає в обрані цілі та завдає 1d4 + 1 сили (force) кожен.",
-    "classes": ["sorcerer", "wizard"]
-  },
-  {
-    "id": "spiritual_weapon",
-    "name_ua": "Духовна зброя",
-    "level": 2,
-    "school": "evocation",
-    "casting_time": "1 Bonus Action",
-    "range": "60 ft",
-    "components": ["V", "S"],
-    "duration": "1 Minute (Concentration)",
-    "description": "(Оновлено 2024: Тепер потребує Концентрації). Створює сяючу зброю в зоні 60 футів. Бонусною дією можна вдарити нею ворога на 1d8 + мод. чаклування (force) шкоди.",
-    "classes": ["cleric"]
-  },
-  {
-    "id": "misty_step",
-    "name_ua": "Мерехтливий крок (Телепортація)",
-    "level": 2,
-    "school": "conjuration",
-    "casting_time": "1 Bonus Action",
-    "range": "Self",
-    "components": ["V"],
-    "duration": "Instantaneous",
-    "description": "Окутавшись сріблястим туманом, ви телепортуєтесь на відстань до 30 футів у незайняте місце, яке ви чітко бачите (Бонусна дія).",
-    "classes": ["sorcerer", "warlock", "wizard"]
-  },
-  {
-    "id": "fireball",
-    "name_ua": "Вогняна куля",
-    "level": 3,
-    "school": "evocation",
-    "casting_time": "1 Action",
-    "range": "150 ft",
-    "components": ["V", "S", "M (bat guano and sulfur)"],
-    "duration": "Instantaneous",
-    "description": "Вогонь вибухає 20-футовою сферою. Кожна істота там має пройти спас Спритності або отримати 8d6 вогняної шкоди (половину при успіху).",
-    "classes": ["sorcerer", "wizard", "warlock_fiend"]
-  },
-  {
-    "id": "revivify",
-    "name_ua": "Повернення до життя (Оживлення)",
-    "level": 3,
-    "school": "necromancy",
-    "casting_time": "1 Action",
-    "range": "Touch",
-    "components": ["V", "S", "M (diamonds worth 300 gp)"],
-    "duration": "Instantaneous",
-    "description": "Ви торкаєтесь до істоти, що померла протягом останньої хвилини. Істота повертається до життя з 1 ПЗ. Вартість заклинання: діаманти на 300 золотих.",
-    "classes": ["artificer", "cleric", "paladin"]
-  },
-  {
-    "id": "haste",
-    "name_ua": "Поспіх",
-    "level": 3,
-    "school": "transmutation",
-    "casting_time": "1 Action",
-    "range": "30 ft",
-    "components": ["V", "S", "M (licorice root)"],
-    "duration": "1 Minute (Concentration)",
-    "description": "Подвоює швидкість цілі, дає +2 КБ, Перевагу на спаси Спритності, і додаткову ДІЮ кожен хід (тільки атака 1 зброєю, ривок, ухилення чи відхід). Після кінця заклинання ціль пропускає хід (сонливість).",
-    "classes": ["artificer", "sorcerer", "wizard"]
-  },
-  {
-    "id": "polymorph",
-    "name_ua": "Поліморф (Перетворення)",
-    "level": 4,
-    "school": "transmutation",
-    "casting_time": "1 Action",
-    "range": "60 ft",
-    "components": ["V", "S", "M (a caterpillar cocoon)"],
-    "duration": "1 Hour (Concentration)",
-    "description": "Перетворює істоту в нову форму тварини, рівень якої не може бути вищим за рівень істоти. Змінює всі характеристики (ПЗ, Атаки) на параметри звіра. Вороги можуть кинути спас Мудрості для відхилення магії.",
-    "classes": ["bard", "druid", "sorcerer", "wizard"]
-  },
-  {
-    "id": "dimension_door",
-    "name_ua": "Вимірні двері (Телепорт)",
-    "level": 4,
-    "school": "conjuration",
-    "casting_time": "1 Action",
-    "range": "500 ft",
-    "components": ["V"],
-    "duration": "Instantaneous",
-    "description": "Ви телепортуєтесь на будь-яку точку (навіть сліпу) в радіусі 500 футів. Можете взяти з собою одного союзника такого ж розміру.",
-    "classes": ["bard", "sorcerer", "warlock", "wizard"]
-  },
-  {
-    "id": "cone_of_cold",
-    "name_ua": "Конус холоду",
-    "level": 5,
-    "school": "evocation",
-    "casting_time": "1 Action",
-    "range": "Self (60-foot cone)",
-    "components": ["V", "S", "M (a small crystal or glass cone)"],
-    "duration": "Instantaneous",
-    "description": "Випускаєте потужний крижаний шторм 60-футовим конусом. Рятівний кидок Відтривалості (Con) або 8d8 холодної шкоди. Ціль, вбита цим закляттям, перетворюється на крижану скульптуру.",
-    "classes": ["sorcerer", "wizard"]
-  },
-  {
-    "id": "greater_restoration",
-    "name_ua": "Вище відновлення",
-    "level": 5,
-    "school": "abjuration",
-    "casting_time": "1 Action",
-    "range": "Touch",
-    "components": ["V", "S", "M (diamond dust worth 100 gp)"],
-    "duration": "Instantaneous",
-    "description": "Позбавлення цілі від 1 втому (exhaustion), чарівного прокляття, зниження характеристик, або ефектів Скам'яніння.",
-    "classes": ["artificer", "bard", "cleric", "druid"]
-  },
-  {
-    "id": "heal",
-    "name_ua": "Зцілення (Супер-лікування)",
-    "level": 6,
-    "school": "evocation",
-    "casting_time": "1 Action",
-    "range": "60 ft",
-    "components": ["V", "S"],
-    "duration": "Instantaneous",
-    "description": "Ви вивільняєте магію, що миттєво зцілює об'єкт: відновлює рівно 70 ПЗ на кубику і знімає параліч, глухоту і сліпоту від впливу. (Оновлено: жодного кідання кубика, гарантований ефект).",
-    "classes": ["cleric", "druid"]
-  },
-  {
-    "id": "forcecage",
-    "name_ua": "Клітка Сили",
-    "level": 7,
-    "school": "evocation",
-    "casting_time": "1 Action",
-    "range": "100 ft",
-    "components": ["V", "S", "M (ruby dust worth 1,500 gp)"],
-    "duration": "1 Hour",
-    "description": "Створює непорушну невидиму магічну в'язницю-куб (10 або 20 фт). Заклинання неможливо пробити, для магічної телепортації звідти потрібен суворий кидок перевірки Харизми.",
-    "classes": ["bard", "warlock", "wizard"]
-  },
-  {
-    "id": "power_word_stun",
-    "name_ua": "Слово Сили: Оглушення",
-    "level": 8,
-    "school": "enchantment",
-    "casting_time": "1 Action",
-    "range": "60 ft",
-    "components": ["V"],
-    "duration": "Instantaneous",
-    "description": "Ви промовляєте слово сили. Якщо поточні здоров'я цілі ≤ 150 ПЗ, її автоматично приготовлено/паралізовано (Stunned; без рятівного кидка в момент касту!). Робить рятівний кидок Конституції лише в кінці свого наступного ходу для зняття.",
-    "classes": ["bard", "sorcerer", "warlock", "wizard"]
-  },
-  {
-    "id": "wish",
-    "name_ua": "Бажання (Wish)",
-    "level": 9,
-    "school": "conjuration",
-    "casting_time": "1 Action",
-    "range": "Self",
-    "components": ["V"],
-    "duration": "Instantaneous",
-    "description": "Найсильніша магія світу. По-перше, ви можете миттєво скопіювати БУДЬ-ЯКЕ заклинання 1-8 рівня (будь-якого класу) не витрачаючи магічних компонентів грошей. По-друге: ви можете попросити зміну реальності (з ризиком 33%, що ви більше НІКОЛИ не скастуєте Бажання).",
-    "classes": ["sorcerer", "wizard"]
-  }
-]
+{
+  "spells": [
+    {
+      "id": "spell_0_1",
+      "name": "Spell 0-1",
+      "level": 0,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_0_2",
+      "name": "Spell 0-2",
+      "level": 0,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_0_3",
+      "name": "Spell 0-3",
+      "level": 0,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_0_4",
+      "name": "Spell 0-4",
+      "level": 0,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_0_5",
+      "name": "Spell 0-5",
+      "level": 0,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_0_6",
+      "name": "Spell 0-6",
+      "level": 0,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_0_7",
+      "name": "Spell 0-7",
+      "level": 0,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_0_8",
+      "name": "Spell 0-8",
+      "level": 0,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_0_9",
+      "name": "Spell 0-9",
+      "level": 0,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_0_10",
+      "name": "Spell 0-10",
+      "level": 0,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_0_11",
+      "name": "Spell 0-11",
+      "level": 0,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_0_12",
+      "name": "Spell 0-12",
+      "level": 0,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_0_13",
+      "name": "Spell 0-13",
+      "level": 0,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_0_14",
+      "name": "Spell 0-14",
+      "level": 0,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_0_15",
+      "name": "Spell 0-15",
+      "level": 0,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_0_16",
+      "name": "Spell 0-16",
+      "level": 0,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_0_17",
+      "name": "Spell 0-17",
+      "level": 0,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_0_18",
+      "name": "Spell 0-18",
+      "level": 0,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_0_19",
+      "name": "Spell 0-19",
+      "level": 0,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_0_20",
+      "name": "Spell 0-20",
+      "level": 0,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_1_1",
+      "name": "Spell 1-1",
+      "level": 1,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_1_2",
+      "name": "Spell 1-2",
+      "level": 1,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_1_3",
+      "name": "Spell 1-3",
+      "level": 1,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_1_4",
+      "name": "Spell 1-4",
+      "level": 1,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_1_5",
+      "name": "Spell 1-5",
+      "level": 1,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_1_6",
+      "name": "Spell 1-6",
+      "level": 1,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_1_7",
+      "name": "Spell 1-7",
+      "level": 1,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_1_8",
+      "name": "Spell 1-8",
+      "level": 1,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_1_9",
+      "name": "Spell 1-9",
+      "level": 1,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_1_10",
+      "name": "Spell 1-10",
+      "level": 1,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_1_11",
+      "name": "Spell 1-11",
+      "level": 1,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_1_12",
+      "name": "Spell 1-12",
+      "level": 1,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_1_13",
+      "name": "Spell 1-13",
+      "level": 1,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_1_14",
+      "name": "Spell 1-14",
+      "level": 1,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_1_15",
+      "name": "Spell 1-15",
+      "level": 1,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_1_16",
+      "name": "Spell 1-16",
+      "level": 1,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_1_17",
+      "name": "Spell 1-17",
+      "level": 1,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_1_18",
+      "name": "Spell 1-18",
+      "level": 1,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_1_19",
+      "name": "Spell 1-19",
+      "level": 1,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_1_20",
+      "name": "Spell 1-20",
+      "level": 1,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_2_1",
+      "name": "Spell 2-1",
+      "level": 2,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_2_2",
+      "name": "Spell 2-2",
+      "level": 2,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_2_3",
+      "name": "Spell 2-3",
+      "level": 2,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_2_4",
+      "name": "Spell 2-4",
+      "level": 2,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_2_5",
+      "name": "Spell 2-5",
+      "level": 2,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_2_6",
+      "name": "Spell 2-6",
+      "level": 2,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_2_7",
+      "name": "Spell 2-7",
+      "level": 2,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_2_8",
+      "name": "Spell 2-8",
+      "level": 2,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_2_9",
+      "name": "Spell 2-9",
+      "level": 2,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_2_10",
+      "name": "Spell 2-10",
+      "level": 2,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_2_11",
+      "name": "Spell 2-11",
+      "level": 2,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_2_12",
+      "name": "Spell 2-12",
+      "level": 2,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_2_13",
+      "name": "Spell 2-13",
+      "level": 2,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_2_14",
+      "name": "Spell 2-14",
+      "level": 2,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_2_15",
+      "name": "Spell 2-15",
+      "level": 2,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_2_16",
+      "name": "Spell 2-16",
+      "level": 2,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_2_17",
+      "name": "Spell 2-17",
+      "level": 2,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_2_18",
+      "name": "Spell 2-18",
+      "level": 2,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_2_19",
+      "name": "Spell 2-19",
+      "level": 2,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_2_20",
+      "name": "Spell 2-20",
+      "level": 2,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_3_1",
+      "name": "Spell 3-1",
+      "level": 3,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_3_2",
+      "name": "Spell 3-2",
+      "level": 3,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_3_3",
+      "name": "Spell 3-3",
+      "level": 3,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_3_4",
+      "name": "Spell 3-4",
+      "level": 3,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_3_5",
+      "name": "Spell 3-5",
+      "level": 3,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_3_6",
+      "name": "Spell 3-6",
+      "level": 3,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_3_7",
+      "name": "Spell 3-7",
+      "level": 3,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_3_8",
+      "name": "Spell 3-8",
+      "level": 3,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_3_9",
+      "name": "Spell 3-9",
+      "level": 3,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_3_10",
+      "name": "Spell 3-10",
+      "level": 3,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_3_11",
+      "name": "Spell 3-11",
+      "level": 3,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_3_12",
+      "name": "Spell 3-12",
+      "level": 3,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_3_13",
+      "name": "Spell 3-13",
+      "level": 3,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_3_14",
+      "name": "Spell 3-14",
+      "level": 3,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_3_15",
+      "name": "Spell 3-15",
+      "level": 3,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_3_16",
+      "name": "Spell 3-16",
+      "level": 3,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_3_17",
+      "name": "Spell 3-17",
+      "level": 3,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_3_18",
+      "name": "Spell 3-18",
+      "level": 3,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_3_19",
+      "name": "Spell 3-19",
+      "level": 3,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_3_20",
+      "name": "Spell 3-20",
+      "level": 3,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_4_1",
+      "name": "Spell 4-1",
+      "level": 4,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_4_2",
+      "name": "Spell 4-2",
+      "level": 4,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_4_3",
+      "name": "Spell 4-3",
+      "level": 4,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_4_4",
+      "name": "Spell 4-4",
+      "level": 4,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_4_5",
+      "name": "Spell 4-5",
+      "level": 4,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_4_6",
+      "name": "Spell 4-6",
+      "level": 4,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_4_7",
+      "name": "Spell 4-7",
+      "level": 4,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_4_8",
+      "name": "Spell 4-8",
+      "level": 4,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_4_9",
+      "name": "Spell 4-9",
+      "level": 4,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_4_10",
+      "name": "Spell 4-10",
+      "level": 4,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_4_11",
+      "name": "Spell 4-11",
+      "level": 4,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_4_12",
+      "name": "Spell 4-12",
+      "level": 4,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    },
+    {
+      "id": "spell_4_13",
+      "name": "Spell 4-13",
+      "level": 4,
+      "school": "Illusion",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "warlock"
+    },
+    {
+      "id": "spell_4_14",
+      "name": "Spell 4-14",
+      "level": 4,
+      "school": "Necromancy",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "paladin"
+    },
+    {
+      "id": "spell_4_15",
+      "name": "Spell 4-15",
+      "level": 4,
+      "school": "Transmutation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "ranger"
+    },
+    {
+      "id": "spell_4_16",
+      "name": "Spell 4-16",
+      "level": 4,
+      "school": "Evocation",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "wizard"
+    },
+    {
+      "id": "spell_4_17",
+      "name": "Spell 4-17",
+      "level": 4,
+      "school": "Abjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "sorcerer"
+    },
+    {
+      "id": "spell_4_18",
+      "name": "Spell 4-18",
+      "level": 4,
+      "school": "Conjuration",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "cleric"
+    },
+    {
+      "id": "spell_4_19",
+      "name": "Spell 4-19",
+      "level": 4,
+      "school": "Divination",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "druid"
+    },
+    {
+      "id": "spell_4_20",
+      "name": "Spell 4-20",
+      "level": 4,
+      "school": "Enchantment",
+      "castingTime": "1 action",
+      "range": "60 feet",
+      "components": [
+        "V",
+        "S"
+      ],
+      "duration": "Instantaneous",
+      "classes": "bard"
+    }
+  ]
+}

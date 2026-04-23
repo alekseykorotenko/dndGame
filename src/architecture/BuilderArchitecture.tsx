@@ -21,8 +21,8 @@
  */
 
 import React from 'react';
-import { useCharacterContext } from '../context/CharacterContext';
-import { classesData, backgroundsData, featsData } from '../lib/dndData';
+import { useCharacterContext } from '../ui/context/CharacterContext';
+import { classesData, backgroundsData, featsData, ClassDef, BackgroundDef, FeatDef } from '../engine/adapters/dndData';
 
 /**
  * Generic Selector Component
@@ -37,7 +37,7 @@ interface SelectorProps<T> {
   renderItem: (item: T) => React.ReactNode;
 }
 
-function GenericSelector<T extends { id: string }>({ 
+function GenericSelector<T extends { id: string; name: string }>({ 
   title, data, selectedId, onSelect, renderItem 
 }: SelectorProps<T>) {
   return (
@@ -69,7 +69,7 @@ function GenericSelector<T extends { id: string }>({
 export const DynamicClassSelector = () => {
   const { char, setChar } = useCharacterContext();
   return (
-    <GenericSelector
+    <GenericSelector<ClassDef>
       title="Оберіть Клас"
       data={classesData}
       selectedId={char.classId}
@@ -87,7 +87,7 @@ export const DynamicClassSelector = () => {
 export const DynamicBackgroundSelector = () => {
   const { char, setChar } = useCharacterContext();
   return (
-    <GenericSelector
+    <GenericSelector<BackgroundDef>
       title="Оберіть Передісторію"
       data={backgroundsData}
       selectedId={char.backgroundId}
@@ -108,7 +108,7 @@ export const DynamicFeatSelector = () => {
   const originFeats = featsData.filter(f => f.category === 'Origin');
 
   return (
-    <GenericSelector
+    <GenericSelector<FeatDef>
       title="Оберіть Рису Походження"
       data={originFeats}
       selectedId={char.extraFeatId}

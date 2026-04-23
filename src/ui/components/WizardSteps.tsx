@@ -491,13 +491,13 @@ export function StepWeaponMastery() {
   const isEligible = masteryAllowedClasses.includes(char.classId || '');
   
   const count = char.classId === 'fighter' ? 3 : 2;
-  const selected = char.chosenMasteries || [];
+  const selected = char.selectedMasteries || [];
 
   const toggleMastery = (id: string) => {
     if (selected.includes(id)) {
-      setChar(prev => ({ ...prev, chosenMasteries: prev.chosenMasteries?.filter(m => m !== id) }));
+      setChar(prev => ({ ...prev, selectedMasteries: prev.selectedMasteries?.filter(m => m !== id) }));
     } else if (selected.length < count) {
-      setChar(prev => ({ ...prev, chosenMasteries: [...(prev.chosenMasteries || []), id] }));
+      setChar(prev => ({ ...prev, selectedMasteries: [...(prev.selectedMasteries || []), id] }));
     }
   };
 
@@ -547,6 +547,19 @@ export function StepWeaponMastery() {
       <div className="text-center text-xs font-bold text-slate-400 uppercase tracking-widest">
         Обрано {selected.length} з {count}
       </div>
+    </div>
+  );
+}
+
+import SpellSelector from './SpellSelector';
+
+export function StepMagic() {
+  return (
+    <div className="space-y-6">
+      <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-200 text-sm text-indigo-900">
+        У цьому розділі ви обираєте заклинанння для свого персонажа. Кількість доступних слотів залежить від вашого класу та рівня.
+      </div>
+      <SpellSelector />
     </div>
   );
 }

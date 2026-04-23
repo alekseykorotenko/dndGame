@@ -13,7 +13,9 @@ export interface CharacterState {
   baseAbilities: Record<AbilityType, number | null>;
   extraFeatId: string | null;
   equipmentPackId: string | null;
-  chosenMasteries?: string[];
+  selectedMasteries?: string[];
+  selectedSpells?: string[];
+  selectedCantrips?: string[];
 }
 
 interface CharacterContextProps {
@@ -45,7 +47,9 @@ export function CharacterProvider({ children }: { children: ReactNode }) {
     baseAbilities: { ...INITIAL_BASE },
     extraFeatId: null,
     equipmentPackId: null,
-    chosenMasteries: [],
+    selectedMasteries: [],
+    selectedSpells: [],
+    selectedCantrips: [],
   });
 
   // Логіка динамічного обчислення фінальних характеристик

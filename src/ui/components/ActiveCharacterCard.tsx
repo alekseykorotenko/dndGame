@@ -206,14 +206,14 @@ export default function ActiveCharacterCard() {
             </div>
             
             {/* Майстерність зброї */}
-            {char.chosenMasteries && char.chosenMasteries.length > 0 && (
+            {char.selectedMasteries && char.selectedMasteries.length > 0 && (
               <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
                 <h3 className="text-sm font-bold text-slate-800 uppercase flex items-center gap-2 mb-3">
                   <Sword className="w-4 h-4 text-slate-600" />
                   Майстерність зброї
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  {char.chosenMasteries.map(mId => {
+                  {char.selectedMasteries.map(mId => {
                     const mastery = weaponMasteriesData.find(wm => wm.id === mId);
                     return (
                       <div key={mId} className="text-xs bg-slate-50 p-2 rounded-lg border border-slate-100 italic text-slate-700">
